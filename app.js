@@ -1,11 +1,33 @@
 const express = require('express');
-const fs = require('fs');
-
+const path = require('path');
+const methodOverride = require('method-override'); //midelware para poder escuchar metodos put, path y delete
+// const fs = require('fs');
 const app = express();
+const mainRoutes = require('./src/routes/main.routes');
+const shopRoutes = require('./src/routes/shop.routes');
+const userRoutes = require('./src/routes/user.routes');
+const adminRoutes = require('./src/routes/admin.routes');
 
-const PORT = 3002;
+const PORT = 3003;
 
-app.use(express.static('public_html'));
+//Template Engines
+
+app.set('view engine','ejs');
+app.set('views', path.join(__dirname,'./src/views'));
+//Midelwares de configuración
+app.use(express.static('public'));
+app.use(express.urlencoded()); // para entender url, si usamos post usamos esto
+app.use(express.json()); //para entender json y lo convierta en datos trabajabls, si usamos post usamos esto
+app.use(methodOverride('_method'));
+//Rutas
+app.use('/admin', adminRoutes);
+app.use('/auth', userRoutes);
+app.use('/shop', shopRoutes);
+app.use('/', mainRoutes);
+
+app.use((req, res)=>{ //midelware para devolver una pagina de error si no existe el sitio
+    res.status(404).send('La pagina que buscas no existe');
+});
 
 app.listen(PORT,()=> console.log(`Escuchando en el puerto http://localhost:${PORT}`));
 
