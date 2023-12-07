@@ -1,0 +1,20 @@
+[
+    {
+        "id" : 1,
+        "item_name": "Arroz",
+        "item_price":50,
+        "price_symbol": "$"
+    },
+    {
+        "id" : 2,
+        "item_name": "Leche",
+        "item_price":50,
+        "price_symbol": "$"
+    },
+    {
+        "id" : 3,
+        "item_name": "Galletas",
+        "item_price":50,
+        "price_symbol": "$"
+    }
+]
